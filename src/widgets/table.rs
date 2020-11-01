@@ -1,13 +1,13 @@
+use crate::cassowary::{
+    strength::{MEDIUM, REQUIRED, WEAK},
+    WeightedRelation::*,
+    {Expression, Solver},
+};
 use crate::{
     buffer::Buffer,
     layout::{Constraint, Rect},
     style::Style,
     widgets::{Block, StatefulWidget, Widget},
-};
-use cassowary::{
-    strength::{MEDIUM, REQUIRED, WEAK},
-    WeightedRelation::*,
-    {Expression, Solver},
 };
 use std::{
     collections::HashMap,
@@ -237,7 +237,7 @@ where
         let mut ccs = Vec::new();
         let mut variables = Vec::new();
         for i in 0..self.widths.len() {
-            let var = cassowary::Variable::new();
+            let var = crate::cassowary::Variable::new();
             variables.push(var);
             var_indices.insert(var, i);
         }

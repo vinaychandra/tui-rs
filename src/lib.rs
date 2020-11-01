@@ -147,6 +147,7 @@
 
 pub mod backend;
 pub mod buffer;
+pub mod cassowary;
 pub mod layout;
 pub mod style;
 pub mod symbols;

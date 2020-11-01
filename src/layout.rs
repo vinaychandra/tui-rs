@@ -2,9 +2,9 @@ use std::cell::RefCell;
 use std::cmp::{max, min};
 use std::collections::HashMap;
 
-use cassowary::strength::{REQUIRED, WEAK};
-use cassowary::WeightedRelation::*;
-use cassowary::{Constraint as CassowaryConstraint, Expression, Solver, Variable};
+use crate::cassowary::strength::{REQUIRED, WEAK};
+use crate::cassowary::WeightedRelation::*;
+use crate::cassowary::{Constraint as CassowaryConstraint, Expression, Solver, Variable};
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq)]
 pub enum Corner {
