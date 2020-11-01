@@ -225,8 +225,6 @@
 //! One thing that this example exposes is that this crate is a rather low level library. It does not have
 //! any inherent knowledge of user interfaces, directions or boxes. Thus for use in a user interface this
 //! crate should ideally be wrapped by a higher level API, which is outside the scope of this crate.
-use std::collections::hash_map::Entry;
-use std::collections::HashMap;
 use std::prelude::v1::*;
 use std::sync::Arc;
 
@@ -628,4 +626,5 @@ pub enum SuggestValueError {
 #[derive(Debug, Copy, Clone)]
 struct InternalSolverError(&'static str);
 
+use hashbrown::{hash_map::Entry, HashMap};
 pub use solver_impl::Solver;

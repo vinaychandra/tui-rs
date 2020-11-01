@@ -1,10 +1,11 @@
 use crate::{
     backend::Backend,
     buffer::{Buffer, Cell},
+    io,
     layout::Rect,
 };
+use std::fmt::Write;
 use std::prelude::v1::*;
-use std::{fmt::Write, io};
 use unicode_width::UnicodeWidthStr;
 
 /// A backend used for the integration tests.
@@ -96,7 +97,7 @@ impl TestBackend {
             .collect::<Vec<String>>()
             .join("\n");
         debug_info.push_str(&nice_diff);
-        panic!(debug_info);
+        panic!(&debug_info);
     }
 }
 

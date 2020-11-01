@@ -9,9 +9,9 @@ use crate::{
     style::Style,
     widgets::{Block, StatefulWidget, Widget},
 };
+use hashbrown::HashMap;
 use std::prelude::v1::*;
 use std::{
-    collections::HashMap,
     fmt::Display,
     iter::{self, Iterator},
 };

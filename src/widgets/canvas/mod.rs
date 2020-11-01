@@ -8,6 +8,7 @@ pub use self::line::Line;
 pub use self::map::{Map, MapResolution};
 pub use self::points::Points;
 pub use self::rectangle::Rectangle;
+use num_traits::Float;
 use std::prelude::v1::*;
 
 use crate::{

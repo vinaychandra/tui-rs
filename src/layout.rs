@@ -1,7 +1,8 @@
-use std::cell::RefCell;
+use hashbrown::HashMap;
+use num_traits::Float;
 use std::cmp::{max, min};
-use std::collections::HashMap;
 use std::prelude::v1::*;
+use std::{cell::RefCell, sync::Once};
 
 use crate::cassowary::strength::{REQUIRED, WEAK};
 use crate::cassowary::WeightedRelation::*;
@@ -66,9 +67,11 @@ pub struct Layout {
     constraints: Vec<Constraint>,
 }
 
-thread_local! {
-    static LAYOUT_CACHE: RefCell<HashMap<(Rect, Layout), Vec<Rect>>> = RefCell::new(HashMap::new());
-}
+// thread_local! {
+//     static LAYOUT_CACHE: RefCell<HashMap<(Rect, Layout), Vec<Rect>>> = RefCell::new(HashMap::new());
+// }
+#[thread_local]
+static LAYOUT_CACHE: Once<RefCell<HashMap<(Rect, Layout), Vec<Rect>>>> = Once::new();
 
 impl Default for Layout {
     fn default() -> Layout {
@@ -177,12 +180,18 @@ impl Layout {
     /// ```
     pub fn split(&self, area: Rect) -> Vec<Rect> {
         // TODO: Maybe use a fixed size cache ?
-        LAYOUT_CACHE.with(|c| {
-            c.borrow_mut()
-                .entry((area, self.clone()))
-                .or_insert_with(|| split(area, self))
-                .clone()
-        })
+        // LAYOUT_CACHE.with(|c| {
+        //     c.borrow_mut()
+        //         .entry((area, self.clone()))
+        //         .or_insert_with(|| split(area, self))
+        //         .clone()
+        // })
+        LAYOUT_CACHE
+            .call_once(|| RefCell::new(HashMap::new()))
+            .borrow_mut()
+            .entry((area, self.clone()))
+            .or_insert_with(|| split(area, self))
+            .clone()
     }
 }
 

@@ -1,7 +1,5 @@
-use std::io;
-
-use crate::buffer::Cell;
 use crate::layout::Rect;
+use crate::{buffer::Cell, io};
 
 #[cfg(feature = "rustbox")]
 mod rustbox;

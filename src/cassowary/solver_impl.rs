@@ -1,3 +1,5 @@
+use hashbrown::{hash_map::Entry, HashMap, HashSet};
+
 use super::{
     near_zero, AddConstraintError, AddEditVariableError, Constraint, Expression,
     InternalSolverError, RelationalOperator, RemoveConstraintError, RemoveEditVariableError, Row,
@@ -5,8 +7,6 @@ use super::{
 };
 
 use std::cell::RefCell;
-use std::collections::hash_map::Entry;
-use std::collections::{HashMap, HashSet};
 use std::prelude::v1::*;
 use std::rc::Rc;
 

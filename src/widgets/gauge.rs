@@ -6,6 +6,7 @@ use crate::{
     text::{Span, Spans},
     widgets::{Block, Widget},
 };
+use num_traits::Float;
 use std::prelude::v1::*;
 
 /// A widget to display a task progress.

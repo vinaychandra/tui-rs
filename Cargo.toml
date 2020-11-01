@@ -16,7 +16,7 @@ edition = "2018"
 [badges]
 
 [features]
-default = ["termion"]
+default = []
 curses = ["easycurses", "pancurses"]
 
 [dependencies]
@@ -29,7 +29,13 @@ crossterm = { version = "0.18", optional = true }
 easycurses = { version = "0.12.2", optional = true }
 pancurses = { version = "0.16.1", optional = true, features = ["win32a"] }
 serde = { version = "1", optional = true, features = ["derive"]}
-no-std-compat = {version = "0.4.1", features = ["alloc", "compat_hash"]}
+no-std-compat = {version = "0.4.1", features = ["alloc", "compat_macros", "compat_sync"]}
+hashbrown = "0.9"
+
+[dependencies.num-traits]
+version = "0.2"
+default-features = false
+features = ["libm"]    # <--- Uncomment if you wish to use `Float` and `Real` without `std`
 
 [dev-dependencies]
 rand = "0.7"

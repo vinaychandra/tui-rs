@@ -146,6 +146,7 @@
 //! corresponding area.
 
 #![no_std]
+#![feature(thread_local)]
 
 extern crate alloc;
 extern crate no_std_compat as std;
@@ -161,3 +162,20 @@ pub mod text;
 pub mod widgets;
 
 pub use self::terminal::{Frame, Terminal, TerminalOptions, Viewport};
+
+pub mod io {
+    use core::fmt::Display;
+
+    #[derive(Debug)]
+    pub struct Error {
+        _private: (),
+    }
+
+    impl Display for Error {
+        fn fmt(&self, _f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+            Ok(())
+        }
+    }
+
+    pub type Result<T> = core::result::Result<T, Error>;
+}

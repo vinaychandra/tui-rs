@@ -4,10 +4,8 @@ use crate::{
     layout::Rect,
     style::{Color, Modifier},
 };
-use std::{
-    fmt,
-    io::{self, Write},
-};
+use std::fmt;
+use std::prelude::v1::*;
 
 pub struct TermionBackend<W>
 where

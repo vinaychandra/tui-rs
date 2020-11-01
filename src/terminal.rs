@@ -1,10 +1,10 @@
 use crate::{
     backend::Backend,
     buffer::Buffer,
+    io,
     layout::Rect,
     widgets::{StatefulWidget, Widget},
 };
-use std::io;
 use std::prelude::v1::*;
 
 #[derive(Debug, Clone, PartialEq)]
