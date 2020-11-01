@@ -1,6 +1,7 @@
 use std::cell::RefCell;
 use std::cmp::{max, min};
 use std::collections::HashMap;
+use std::prelude::v1::*;
 
 use crate::cassowary::strength::{REQUIRED, WEAK};
 use crate::cassowary::WeightedRelation::*;

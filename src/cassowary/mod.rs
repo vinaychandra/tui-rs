@@ -227,6 +227,7 @@
 //! crate should ideally be wrapped by a higher level API, which is outside the scope of this crate.
 use std::collections::hash_map::Entry;
 use std::collections::HashMap;
+use std::prelude::v1::*;
 use std::sync::Arc;
 
 mod operators;

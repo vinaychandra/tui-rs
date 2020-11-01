@@ -6,6 +6,7 @@ use crate::{
     text::{Span, Spans},
     widgets::{Block, Widget},
 };
+use std::prelude::v1::*;
 
 /// A widget to display available tabs in a multiple panels context.
 ///

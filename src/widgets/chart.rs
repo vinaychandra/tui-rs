@@ -9,6 +9,7 @@ use crate::{
         Block, Borders, Widget,
     },
 };
+use std::prelude::v1::*;
 use std::{borrow::Cow, cmp::max};
 use unicode_width::UnicodeWidthStr;
 

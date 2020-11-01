@@ -3,6 +3,7 @@ use crate::{
     buffer::{Buffer, Cell},
     layout::Rect,
 };
+use std::prelude::v1::*;
 use std::{fmt::Write, io};
 use unicode_width::UnicodeWidthStr;
 

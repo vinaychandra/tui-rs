@@ -9,6 +9,7 @@ use crate::{
     style::Style,
     widgets::{Block, StatefulWidget, Widget},
 };
+use std::prelude::v1::*;
 use std::{
     collections::HashMap,
     fmt::Display,

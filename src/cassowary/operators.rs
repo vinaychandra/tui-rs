@@ -1,5 +1,6 @@
 use super::{Constraint, Expression, PartialConstraint, Term, Variable, WeightedRelation};
 use std::ops;
+use std::prelude::v1::*;
 
 // Relation
 

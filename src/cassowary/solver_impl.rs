@@ -7,6 +7,7 @@ use super::{
 use std::cell::RefCell;
 use std::collections::hash_map::Entry;
 use std::collections::{HashMap, HashSet};
+use std::prelude::v1::*;
 use std::rc::Rc;
 
 #[derive(Copy, Clone)]

@@ -4,6 +4,7 @@ use crate::{
     text::{Span, Spans},
 };
 use std::cmp::min;
+use std::prelude::v1::*;
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
 

@@ -48,6 +48,7 @@
 //! ```
 use crate::style::Style;
 use std::borrow::Cow;
+use std::prelude::v1::*;
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
 

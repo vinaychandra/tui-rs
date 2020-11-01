@@ -9,6 +9,7 @@ use crate::{
     },
 };
 use std::iter;
+use std::prelude::v1::*;
 use unicode_width::UnicodeWidthStr;
 
 fn get_line_offset(line_width: u16, text_area_width: u16, alignment: Alignment) -> u16 {

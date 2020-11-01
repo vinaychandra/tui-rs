@@ -145,6 +145,11 @@
 //! you might need a blank space somewhere, try to pass an additional constraint and don't use the
 //! corresponding area.
 
+#![no_std]
+
+extern crate alloc;
+extern crate no_std_compat as std;
+
 pub mod backend;
 pub mod buffer;
 pub mod cassowary;

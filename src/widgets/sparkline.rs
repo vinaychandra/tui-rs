@@ -6,6 +6,7 @@ use crate::{
     widgets::{Block, Widget},
 };
 use std::cmp::min;
+use std::prelude::v1::*;
 
 /// Widget to render a sparkline over one or more lines.
 ///

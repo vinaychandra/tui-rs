@@ -1,6 +1,7 @@
 //! `style` contains the primitives used to control how your user interface will look.
 
 use bitflags::bitflags;
+use std::prelude::v1::*;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]

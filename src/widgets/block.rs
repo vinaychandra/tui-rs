@@ -6,6 +6,7 @@ use crate::{
     text::{Span, Spans},
     widgets::{Borders, Widget},
 };
+use std::prelude::v1::*;
 
 #[derive(Debug, Clone, Copy)]
 pub enum BorderType {

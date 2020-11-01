@@ -1,4 +1,5 @@
 use crate::text::StyledGrapheme;
+use std::prelude::v1::*;
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_width::UnicodeWidthStr;
 

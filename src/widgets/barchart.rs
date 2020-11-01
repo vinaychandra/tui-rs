@@ -6,6 +6,7 @@ use crate::{
     widgets::{Block, Widget},
 };
 use std::cmp::min;
+use std::prelude::v1::*;
 use unicode_width::UnicodeWidthStr;
 
 /// Display multiple bars in a single widgets

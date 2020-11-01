@@ -6,6 +6,7 @@ use crate::{
     widgets::{Block, StatefulWidget, Widget},
 };
 use std::iter::{self, Iterator};
+use std::prelude::v1::*;
 use unicode_width::UnicodeWidthStr;
 
 #[derive(Debug, Clone)]
