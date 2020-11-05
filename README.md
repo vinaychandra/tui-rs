@@ -1,4 +1,11 @@
-# tui-rs
+# tui-rs (no_std mode)
+
+This repo is a fork of tui-rs with minor changes with support for `no_std` support. The following are the notable changes
+- `hashbrown` crate provides no_std support for HashMaps
+- `num_traits` crate provide no_std support for float operations
+- `cassowary` is an abandoned crate that is bought in to recompile for no_std
+- `#![feature(thread_local)]` and `#[thread_local]` is used instead of `thread_local!`
+- `std::io::Error` is being replaced with a shim in `lib.rs` file
 
 [![Build Status](https://github.com/fdehau/tui-rs/workflows/CI/badge.svg)](https://github.com/fdehau/tui-rs/actions?query=workflow%3ACI+)
 [![Crate Status](https://img.shields.io/crates/v/tui.svg)](https://crates.io/crates/tui)
