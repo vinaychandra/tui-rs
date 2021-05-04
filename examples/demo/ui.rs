@@ -7,7 +7,7 @@ use tui::{
     text::{Span, Spans},
     widgets::canvas::{Canvas, Line, Map, MapResolution, Rectangle},
     widgets::{
-        Axis, BarChart, Block, Borders, Chart, Dataset, Gauge, LineGauge, List, ListItem,
+        Axis, BarChart, Block, Borders, Cell, Chart, Dataset, Gauge, LineGauge, List, ListItem,
         Paragraph, Row, Sparkline, Table, Tabs, Wrap,
     },
     Frame,
@@ -31,6 +31,7 @@ pub fn draw<B: Backend>(f: &mut Frame<B>, app: &mut App) {
     match app.tabs.index {
         0 => draw_first_tab(f, app, chunks[1]),
         1 => draw_second_tab(f, app, chunks[1]),
+        2 => draw_third_tab(f, app, chunks[1]),
         _ => {}
     };
 }
@@ -308,18 +309,21 @@ where
     let failure_style = Style::default()
         .fg(Color::Red)
         .add_modifier(Modifier::RAPID_BLINK | Modifier::CROSSED_OUT);
-    let header = ["Server", "Location", "Status"];
     let rows = app.servers.iter().map(|s| {
         let style = if s.status == "Up" {
             up_style
         } else {
             failure_style
         };
-        Row::StyledData(vec![s.name, s.location, s.status].into_iter(), style)
+        Row::new(vec![s.name, s.location, s.status]).style(style)
     });
-    let table = Table::new(header.iter(), rows)
+    let table = Table::new(rows)
+        .header(
+            Row::new(vec!["Server", "Location", "Status"])
+                .style(Style::default().fg(Color::Yellow))
+                .bottom_margin(1),
+        )
         .block(Block::default().title("Servers").borders(Borders::ALL))
-        .header_style(Style::default().fg(Color::Yellow))
         .widths(&[
             Constraint::Length(15),
             Constraint::Length(15),
@@ -370,4 +374,52 @@ where
         .x_bounds([-180.0, 180.0])
         .y_bounds([-90.0, 90.0]);
     f.render_widget(map, chunks[1]);
+}
+
+fn draw_third_tab<B>(f: &mut Frame<B>, _app: &mut App, area: Rect)
+where
+    B: Backend,
+{
+    let chunks = Layout::default()
+        .direction(Direction::Horizontal)
+        .constraints([Constraint::Ratio(1, 2), Constraint::Ratio(1, 2)])
+        .split(area);
+    let colors = [
+        Color::Reset,
+        Color::Black,
+        Color::Red,
+        Color::Green,
+        Color::Yellow,
+        Color::Blue,
+        Color::Magenta,
+        Color::Cyan,
+        Color::Gray,
+        Color::DarkGray,
+        Color::LightRed,
+        Color::LightGreen,
+        Color::LightYellow,
+        Color::LightBlue,
+        Color::LightMagenta,
+        Color::LightCyan,
+        Color::White,
+    ];
+    let items: Vec<Row> = colors
+        .iter()
+        .map(|c| {
+            let cells = vec![
+                Cell::from(Span::raw(format!("{:?}: ", c))),
+                Cell::from(Span::styled("Foreground", Style::default().fg(*c))),
+                Cell::from(Span::styled("Background", Style::default().bg(*c))),
+            ];
+            Row::new(cells)
+        })
+        .collect();
+    let table = Table::new(items)
+        .block(Block::default().title("Colors").borders(Borders::ALL))
+        .widths(&[
+            Constraint::Ratio(1, 3),
+            Constraint::Ratio(1, 3),
+            Constraint::Ratio(1, 3),
+        ]);
+    f.render_widget(table, chunks[0]);
 }

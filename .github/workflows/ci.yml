@@ -1,6 +1,15 @@
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 name: CI
+
+env:
+  CI_CARGO_MAKE_VERSION: 0.32.9
 
 jobs:
   linux:
@@ -12,48 +21,33 @@ jobs:
     steps:
       - name: "Install dependencies"
         run: sudo apt-get install libncurses5-dev
+      - uses: hecrj/setup-rust-action@967aec96c6a27a0ce15c1dac3aaba332d60565e2
+        with:
+          rust-version: ${{ matrix.rust }}
+          components: rustfmt,clippy
       - uses: actions/checkout@v1
-      - uses: actions-rs/toolchain@v1
+      - name: "Get cargo bin directory"
+        id: cargo-bin-dir
+        run: echo "::set-output name=dir::$HOME/.cargo/bin"
+      - name: "Cache cargo make"
+        id: cache-cargo-make
+        uses: actions/cache@v2
         with:
-          profile: default
-          toolchain: ${{ matrix.rust }}
-          override: true
+          path: ${{ steps.cargo-bin-dir.outputs.dir }}/cargo-make
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-make-${{ env.CI_CARGO_MAKE_VERSION }}
+      - name: "Install cargo-make"
+        if: steps.cache-cargo-make.outputs.cache-hit != 'true'
+        run: cargo install cargo-make --version ${{ env.CI_CARGO_MAKE_VERSION }}
       - name: "Format"
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
+        run: cargo make fmt
       - name: "Check"
-        uses: actions-rs/cargo@v1
-        with:
-          command: check
-          args: --examples
-      - name: "Check (crossterm)"
-        uses: actions-rs/cargo@v1
-        with:
-          command: check
-          args: --no-default-features --features=crossterm --example crossterm_demo
-      - name: "Check (rustbox)"
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --no-default-features --features=rustbox --example rustbox_demo
-      - name: "Check (curses)"
-        uses: actions-rs/cargo@v1
-        with:
-          command: check
-          args: --no-default-features --features=curses --example curses_demo
+        run: cargo make check
       - name: "Test"
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
+        run: cargo make test
         env:
           RUST_BACKTRACE: full
       - name: "Clippy"
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --all-targets --all-features -- -D warnings
+        run: cargo make clippy
   windows:
     name: Windows
     runs-on: windows-latest
@@ -62,20 +56,30 @@ jobs:
         rust: ["1.44.0", "stable"]
     steps:
       - uses: actions/checkout@v1
-      - uses: actions-rs/toolchain@v1
+      - uses: hecrj/setup-rust-action@967aec96c6a27a0ce15c1dac3aaba332d60565e2
         with:
-          profile: default
-          toolchain: ${{ matrix.rust }}
-          override: true
-      - name: "Check (crossterm)"
-        uses: actions-rs/cargo@v1
+          rust-version: ${{ matrix.rust }}
+          components: rustfmt,clippy
+      - uses: actions/checkout@v1
+      - name: "Get cargo bin directory"
+        id: cargo-bin-dir
+        run: echo "::set-output name=dir::$HOME\.cargo\bin"
+      - name: "Cache cargo make"
+        id: cache-cargo-make
+        uses: actions/cache@v2
         with:
-          command: check
-          args: --no-default-features --features=crossterm --example crossterm_demo
-      - name: "Test (crossterm)"
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --no-default-features --features=crossterm --tests --examples
+          path: ${{ steps.cargo-bin-dir.outputs.dir }}\cargo-make.exe
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-make-${{ env.CI_CARGO_MAKE_VERSION }}
+      - name: "Install cargo-make"
+        if: steps.cache-cargo-make.outputs.cache-hit != 'true'
+        run: cargo install cargo-make --version ${{ env.CI_CARGO_MAKE_VERSION }}
+      - name: "Format"
+        run: cargo make fmt
+      - name: "Check"
+        run: cargo make check
+      - name: "Test"
+        run: cargo make test
         env:
           RUST_BACKTRACE: full
+      - name: "Clippy"
+        run: cargo make clippy

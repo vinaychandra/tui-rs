@@ -9,7 +9,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! tui = "0.12"
+//! tui = "0.15"
 //! termion = "1.5"
 //! ```
 //!
@@ -19,8 +19,8 @@
 //!
 //! ```toml
 //! [dependencies]
-//! crossterm = "0.18"
-//! tui = { version = "0.12", default-features = false, features = ['crossterm'] }
+//! crossterm = "0.19"
+//! tui = { version = "0.15", default-features = false, features = ['crossterm'] }
 //! ```
 //!
 //! The same logic applies for all other available backends.
@@ -94,7 +94,8 @@
 //!             .title("Block")
 //!             .borders(Borders::ALL);
 //!         f.render_widget(block, size);
-//!     })
+//!     })?;
+//!     Ok(())
 //! }
 //! ```
 //!
@@ -136,7 +137,8 @@
 //!              .title("Block 2")
 //!              .borders(Borders::ALL);
 //!         f.render_widget(block, chunks[1]);
-//!     })
+//!     })?;
+//!     Ok(())
 //! }
 //! ```
 //!
